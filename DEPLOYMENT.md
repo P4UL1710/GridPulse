@@ -6,9 +6,9 @@ The React app lives in `frontend/`. The repository root also contains an older
 ## Frontend
 
 1. Push these changes to your Git repository and import it into Vercel.
-2. Leave **Root Directory** at the repository root (`./`). The root `vercel.json`
-   sets the install command, build command, and output directory. Use **Other**
-   as the framework preset if prompted.
+2. Set **Root Directory** to `frontend`. The root `vercel.json` provides the
+   install command, build command, and output directory for this frontend
+   project.
 3. Select **Node.js 24.x** in project settings (the version used to verify this
    project locally). Vite requires Node.js 20.19+ or 22.12+.
 4. In Vercel's environment variables, set `VITE_API_URL` to your deployed backend
@@ -20,17 +20,13 @@ The React app lives in `frontend/`. The repository root also contains an older
 The configuration runs:
 
 ```sh
-npm ci --prefix frontend
-npm run build --prefix frontend
+npm ci
+npm run build
 ```
 
-The output directory is `frontend/dist`. It is generated during deployment and
+The output directory is `dist` (relative to `frontend/`). It is generated during deployment and
 should stay ignored by Git. The JavaScript chunk-size warning does not fail the
 build.
-
-If your existing Vercel project uses `frontend` as Root Directory, either change
-it to `./` to use this configuration, or keep `frontend` and use `npm ci`,
-`npm run build`, and `dist` as the install, build, and output settings.
 
 ## Backend
 
