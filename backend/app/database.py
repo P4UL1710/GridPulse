@@ -153,17 +153,17 @@ class DatabaseManager:
 
     async def connect(self):
         try:
-            logger.info(f"Attempting MongoDB connection to {settings.MONGODB_URL}...")
+            logger.info("Attempting MongoDB connection...")
             client = AsyncIOMotorClient(settings.MONGODB_URL, serverSelectionTimeoutMS=2500)
             # Ping database to check if server is running
             await client.admin.command('ping')
             self.client = client
             self.db = client[settings.DATABASE_NAME]
             self.is_connected_to_real_mongo = True
-            print(f"[GridPulse DB] Successfully connected to live MongoDB at {settings.MONGODB_URL} (Database: {settings.DATABASE_NAME})")
+            print(f"[GridPulse DB] Successfully connected to live MongoDB (Database: {settings.DATABASE_NAME})")
         except Exception as e:
             logger.warning(f"Live MongoDB not available ({e}). Initializing high-speed async in-memory MongoDB layer.")
-            print(f"[GridPulse DB] Live MongoDB not detected at {settings.MONGODB_URL}. Initialized high-performance async in-memory document store.")
+            print("[GridPulse DB] Live MongoDB connection failed. Initialized high-performance async in-memory document store.")
             self.client = None
             self.db = AsyncMockDatabase(settings.DATABASE_NAME)
             self.is_connected_to_real_mongo = False
